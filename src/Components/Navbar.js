@@ -6,8 +6,9 @@ const Navbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   // Function to handle logout
-  const handleLogout = () => {};
-
+  const handleLogout = () => {
+    window.location.href = '/';
+  };
   // Function to toggle logout modal
   const toggleLogoutModal = () => {
     setShowLogoutModal(!showLogoutModal);

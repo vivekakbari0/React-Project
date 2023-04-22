@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const [mobileNumber, setMobileNumber] = useState('');
@@ -6,6 +7,7 @@ function LoginPage() {
   const [generatedOtp, setGeneratedOtp] = useState(null);
   const [enteredOtp, setEnteredOtp] = useState('');
   const [isLoginDisabled, setIsLoginDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const handleMobileNumberChange = (event) => {
     setMobileNumber(event.target.value);
@@ -32,6 +34,12 @@ function LoginPage() {
   const handleLogin = (event) => {
     event.preventDefault();
     console.log(`Logged in as ${role} with mobile number ${mobileNumber}`);
+    const data = {
+      mobileNumber: mobileNumber,
+      role: role,
+    };
+    localStorage.setItem('data', JSON.stringify(data));
+    navigate('/');
     setMobileNumber('');
     setRole('');
     setGeneratedOtp('');
@@ -41,9 +49,9 @@ function LoginPage() {
     <div className="flex flex-col justify-center mt-20 items-center border-solid">
       <form
         onSubmit={handleLogin}
-        className="mb-4 p-7 bg-slate-400 border-2 border-black rounded-md shadow-md"
+        className="mb-4 p-7 bg-slate-200 border-2 border-black rounded-md shadow-md"
       >
-        <div className="font-bold m-4">
+        <div className="m-4">
           <label htmlFor="mobileNumber">Mobile number</label>
           <input
             type="tel"
@@ -57,7 +65,7 @@ function LoginPage() {
             required
           />
         </div>
-        <div className="font-bold m-4">
+        <div className="m-4">
           <label htmlFor="role">Select role</label>
           <select
             id="role"
@@ -71,9 +79,9 @@ function LoginPage() {
             <option value="user">User</option>
           </select>
         </div>
-        <div className="font-bold m-4">
+        <div className="m-4">
           <button
-            className="tracking-wide mb-2 bg-gradient-to-b from-green-200 to-sky-200 border-2 border-black text-black font-bold text-base rounded-lg block w-40 p-2"
+            className="tracking-wide mb-2 bg-gradient-to-b from-green-200 to-sky-200 border-2 border-black text-black text-base rounded-lg block w-40 p-2"
             onClick={generateOtp}
             disabled={!mobileNumber || !role}
           >
@@ -94,7 +102,7 @@ function LoginPage() {
               />
               <div className="mt-3">
                 <button
-                  className="tracking-wide mb-2 bg-gradient-to-b from-green-200 to-sky-200 border-2 border-black text-black font-bold text-base rounded-lg block w-40 p-2"
+                  className="tracking-wide mb-2 bg-gradient-to-b from-green-200 to-sky-200 border-2 border-black text-black text-base rounded-lg block w-40 p-2"
                   type="submit"
                   disabled={isLoginDisabled}
                 >
