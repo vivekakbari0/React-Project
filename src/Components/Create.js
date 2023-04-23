@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
 import PostList from './Postlist';
 
@@ -93,10 +94,10 @@ const Posts = () => {
   };
 
   return (
-    <div className="m-4">
-      <div className="flex justify-center mb-4">
+    <>
+      <div className="flex justify-center mt-10 mb-8 text-lg">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="py-2 px-4 font-serif border border-black hover:bg-slate-300 rounded shadow-md"
           onClick={() => setShowModal(true)}
         >
           Create New Post
@@ -108,39 +109,39 @@ const Posts = () => {
         onDeletePost={handleDeletePost}
       />
       <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
-        <div className="p-4 bg-white shadow-md rounded-md">
-          <h2 className="text-xl font-bold mb-2">
+        <div className="p-4 shadow-md rounded-md mt-12 bg-slate-100">
+          <h2 className="text-xl font-bold mb-5 flex justify-center font-serif">
             {Object.keys(currentPost).length === 0 ? 'Add Post' : 'Edit Post'}
           </h2>
-          <label className="block mb-2">
+          <label className="block mb-2 font-serif">
             Title
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 mt-2"
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-2 font-serif">
             Body
             <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 mt-2"
               value={body}
               onChange={(e) => setBody(e.target.value)}
             />
           </label>
-          <label className="block mb-2">
+          <label className="block mb-2 font-serif">
             Image (optional)
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow border rounded w-full py-2 px-3 text-gray-700 mt-2"
               type="text"
               value={image}
               onChange={(e) => setImage(e.target.value)}
             />
           </label>
-          <div className="flex justify-between mt-4">
+          <div className="flex justify-center mt-7">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-blue-500 hover:bg-blue-700 font-serif text-white font-bold py-2 px-4 rounded ml-10"
               onClick={() =>
                 Object.keys(currentPost).length === 0
                   ? handleAddPost()
@@ -152,7 +153,7 @@ const Posts = () => {
                 : 'Update Post'}
             </button>
             <button
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+              className="bg-gray-500 hover:bg-gray-700 font-serif text-white font-bold ml-3 py-2 px-4 rounded"
               onClick={() => setShowModal(false)}
             >
               Cancel
@@ -160,7 +161,8 @@ const Posts = () => {
           </div>
         </div>
       </Modal>
-    </div>
+      <ToastContainer />
+    </>
   );
 };
 export default Posts;

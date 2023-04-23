@@ -1,27 +1,42 @@
 import React from 'react';
+import { AiTwotoneEdit } from 'react-icons/ai';
+import { MdDeleteForever } from 'react-icons/md';
 
 const PostList = ({ posts, onEditPost, onDeletePost }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {posts.map((post) => (
-        <div key={post.id} className="p-4 bg-white shadow-md rounded-md">
-          <h2 className="text-xl font-bold mb-2">{post.title}</h2>
-          {post.image && (
-            <img src={post.image} alt={post.title} className="w-full mb-2" />
-          )}
-          <p className="text-gray-700">{post.body}</p>
+        <div key={post.id} className="p-4 bg-slate-200 shadow-lg rounded-md">
+          <div className="flex flex-row items-start">
+            {post.image && (
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-32 mr-4 mt-2"
+              />
+            )}
+            <div>
+              <h2 className="text-xl font-bold capitalize mb-2 font-serif">
+                {post.title}
+              </h2>
+              <p className="text-gray-700 font-sans capitalize">
+                {post.body.slice(0, 120)}
+                {post.body.length > 120 && '...'}
+              </p>
+            </div>
+          </div>
           <div className="flex justify-between mt-4">
             <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              className="py-2 px-4 rounded"
               onClick={() => onEditPost(post.id)}
             >
-              Edit
+              <AiTwotoneEdit size={25} />
             </button>
             <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              className="py-2 px-4 rounded"
               onClick={() => onDeletePost(post.id)}
             >
-              Delete
+              <MdDeleteForever size={25} />
             </button>
           </div>
         </div>

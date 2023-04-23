@@ -32,14 +32,16 @@ const ExplorePost = () => {
     <>
       <div className=" mt-4">
         <section className="m-4 p-3 border-2 border-black bg-gradient-to-r from-zinc-400 via-pink-200 to-zinc-400">
-          <h2 className="font-bold text-center text-2xl">Explore posts</h2>
+          <h2 className="font-bold text-center text-2xl font-serif">
+            Explore posts
+          </h2>
           <div className="flex justify-center p-3 m-2">
             <input
               type="text"
-              placeholder="Search posts by title..."
+              placeholder="Search posts by title"
               value={searchTerm}
               onChange={handleSearchChange}
-              className="border-2 border-black rounded-md px-3 py-2 placeholder:text-gray-950 bg-gradient-to-r from-zinc-400 via-pink-200 to-zinc-400 font-bold"
+              className="border-2 border-black rounded-md px-3 py-2 placeholder:text-gray-950 bg-gradient-to-r from-zinc-400 via-pink-200 to-zinc-400 font-mono font-bold"
             />
           </div>
           {isLoading ? (
@@ -48,20 +50,24 @@ const ExplorePost = () => {
             </p>
           ) : (
             <div className="flex justify-center p-3 m-2">
-              <ul className="flex flex-col mb-3 bg-gradient-to-r from-violet-300 to-violet-400">
+              <ul className="flex flex-col mb-3">
                 {filteredPosts.map((post) => (
                   <li
-                    className="border border-black p-3 flex items-center"
+                    className="border border-black p-3 flex items-center mb-2 bg-gradient-to-r from-violet-300 to-violet-400 rounded-md"
                     key={post.id}
                   >
-                    <div
-                      className="flex-shrink-0 w-24 h-24 rounded-full bg-gray-200 mb-2 mr-4"
-                      role="img"
-                      aria-label="fallback image"
-                    ></div>
+                    <div className="flex-shrink-0 mb-2 mr-4" role="img">
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTbJ6q6nCvC-F8ctwjE8F_gh176HK1p-EcKg&usqp=CAU"
+                        className="rounded-md w-20 h-24"
+                        alt="img"
+                      />
+                    </div>
                     <div>
-                      <h3 className="font-bold">{post.title}</h3>
-                      <p>
+                      <h3 className="font-bold font-sans capitalize mb-1">
+                        {post.title}
+                      </h3>
+                      <p className="capitalize">
                         {post.body.slice(0, 120)}
                         {post.body.length > 120 && '...'}
                       </p>
