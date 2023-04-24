@@ -1,7 +1,5 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
 import CreatePosts from '../Components/CreatePost';
-// import Posts from '../Components/Create';
 import ExplorePost from '../Components/ExplorePost';
 
 const Home = () => {

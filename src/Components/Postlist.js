@@ -4,22 +4,22 @@ import { MdDeleteForever } from 'react-icons/md';
 
 const PostList = ({ posts, onEditPost, onDeletePost }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ml-4 mr-4">
       {posts.map((post) => (
-        <div key={post.id} className="p-4 bg-slate-200 shadow-lg rounded-md">
+        <div key={post.id} className="bg-slate-200 shadow-lg rounded-md p-3">
           <div className="flex flex-row items-start">
             {post.image && (
               <img
                 src={post.image}
                 alt={post.title}
-                className="h-32 mr-4 mt-2"
+                className="h-32 w-36 mr-4 mt-2"
               />
             )}
             <div>
               <h2 className="text-xl font-bold capitalize mb-2 font-serif">
                 {post.title}
               </h2>
-              <p className="text-gray-700 font-sans capitalize">
+              <p className="text-gray-700 font-sans capitalize break-all">
                 {post.body.slice(0, 120)}
                 {post.body.length > 120 && '...'}
               </p>

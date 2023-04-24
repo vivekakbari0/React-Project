@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from 'react-modal';
@@ -10,7 +10,8 @@ const Posts = () => {
   const [currentPost, setCurrentPost] = useState({});
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
+  const fileRef = useRef(null);
 
   useEffect(() => {
     // Load posts from local storage on component mount
@@ -38,7 +39,7 @@ const Posts = () => {
     // Reset the input fields
     setTitle('');
     setBody('');
-    setImage('');
+    setImage((fileRef.current.value = ''));
     // Show a success message
     toast.success('Post added successfully');
   };
@@ -65,17 +66,8 @@ const Posts = () => {
   };
 
   const handleUpdatePost = () => {
-    if (Object.keys(currentPost).length === 0) {
-      // Show an error message if the user tries to update a post without selecting it first
-      toast.error('Please select a post to update');
-      return;
-    }
     // Create a copy of the current post object
-    const updatedPost = { ...currentPost };
-    // Update the copy with the new input values
-    updatedPost.title = title;
-    updatedPost.body = body;
-    updatedPost.image = image;
+    const updatedPost = { ...currentPost, title, body, image };
     // Find the index of the current post in the posts array
     const index = posts.findIndex((post) => post.id === currentPost.id);
     // Create a new posts array with the updated post object at the same index
@@ -109,7 +101,7 @@ const Posts = () => {
         onDeletePost={handleDeletePost}
       />
       <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
-        <div className="p-4 shadow-md rounded-md mt-12 bg-slate-100">
+        <div className="p-4 shadow-lg mt-12 bg-slate-100">
           <h2 className="text-xl font-bold mb-5 flex justify-center font-serif">
             {Object.keys(currentPost).length === 0 ? 'Add Post' : 'Edit Post'}
           </h2>
@@ -134,9 +126,10 @@ const Posts = () => {
             Image (optional)
             <input
               className="shadow border rounded w-full py-2 px-3 text-gray-700 mt-2"
-              type="text"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
+              type="file"
+              id="image"
+              ref={fileRef}
+              onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
             />
           </label>
           <div className="flex justify-center mt-7">

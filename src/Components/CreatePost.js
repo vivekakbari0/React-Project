@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const CreatePost = () => {
   const [createdPosts, setCreatedPosts] = useState([]);
@@ -21,30 +22,30 @@ const CreatePost = () => {
   );
 
   return (
-    <>
-      <div className=" mt-4">
-        <section className="m-4 p-3 border-2 border-black bg-gradient-to-r from-zinc-400 via-pink-200 to-zinc-400">
-          <h2 className="font-bold text-center text-2xl font-serif">
-            Created posts
-          </h2>
-          <div className="flex justify-center p-3 m-2">
-            <input
-              type="text"
-              placeholder="Search posts by title"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="border-2 border-black rounded-md px-3 py-2 placeholder:text-gray-950 bg-gradient-to-r from-zinc-400 via-pink-200 to-zinc-400 font-mono font-bold"
-            />
-          </div>
-          <div className="flex justify-center p-3 m-2">
-            {createdPosts.length > 0 ? (
-              <ul className="flex flex-col mb-3  w-full mr-24 ml-28">
-                {filteredCreatePosts.map((post) => (
+    <div className="mt-4">
+      <section className="m-4 p-3 rounded-md shadow-xl bg-gradient-to-r from-zinc-300 via-pink-100 to-zinc-300 mb-10">
+        <h2 className="font-bold text-center text-3xl font-serif mt-5">
+          Created posts
+        </h2>
+        <div className="flex justify-center items-center p-3 m-2">
+          <input
+            type="text"
+            placeholder="Search posts by title..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="border-2 border-black rounded-md px-3 py-2 placeholder:text-gray-950 bg-gradient-to-r from-zinc-300 via-pink-100 to-zinc-300 font-mono font-bold w-full md:w-2/3 lg:w-1/2"
+          />
+        </div>
+        <div className="flex justify-center p-3 m-2">
+          {createdPosts.length > 0 ? (
+            <ul className="flex flex-col mb-3 w-full md:w-2/3 lg:w-1/2">
+              {filteredCreatePosts.map((post) => (
+                <Link to={`/posts/${post.id}`}>
                   <li
-                    className="border border-black p-3 flex items-center mb-2 bg-gradient-to-r from-violet-300 to-violet-400 rounded-md"
+                    className="border border-black p-3 flex items-center mb-3 bg-gradient-to-r from-violet-200 to-violet-300 rounded-md shadow-lg"
                     key={post.id}
                   >
-                    <div className="flex-shrink-0 mr-4" role="img">
+                    <div className="flex-shrink-0 mb-2 mr-4" role="img">
                       {post.image && (
                         <img
                           src={post.image}
@@ -63,15 +64,15 @@ const CreatePost = () => {
                       </p>
                     </div>
                   </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No posts created yet.</p>
-            )}
-          </div>
-        </section>
-      </div>
-    </>
+                </Link>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-xl">No posts created yet.</p>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 
