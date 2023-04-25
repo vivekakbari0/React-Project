@@ -4,6 +4,7 @@ import { FaHome, FaUserCircle } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 
 const Navbar = () => {
+  // Check user role from localStorage
   const logindata = JSON.parse(localStorage.getItem('data'));
   const logindataUser = logindata?.role;
 
@@ -14,6 +15,7 @@ const Navbar = () => {
           <Link to="/">
             <FaHome size={25} color="white" />
           </Link>
+          {/* Show create post button for admin users */}
           <div className="ml-10">
             {logindataUser === 'admin' && (
               <Link to="/create-post">

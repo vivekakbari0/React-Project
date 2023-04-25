@@ -37,7 +37,6 @@ function LoginPage() {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    console.log(`Logged in as ${role} with mobile number ${mobileNumber}`);
     const data = {
       mobileNumber: mobileNumber,
       role: role,
@@ -47,7 +46,6 @@ function LoginPage() {
     setMobileNumber('');
     setRole('');
     setGeneratedOtp('');
-    toast.success('Login successfully');
   };
 
   const handleLogout = () => {
@@ -81,7 +79,7 @@ function LoginPage() {
                 alt="img"
               />
             </div>
-            <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+            <div className="mb-12 mt-10 md:w-8/12 lg:w-5/12 lg:mr-4">
               <form
                 onSubmit={handleLogin}
                 className="mb-4 p-10 bg-slate-200 rounded-md shadow-xl text-lg"

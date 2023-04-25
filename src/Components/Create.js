@@ -101,7 +101,7 @@ const Posts = () => {
         onDeletePost={handleDeletePost}
       />
       <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
-        <div className="p-4 shadow-lg mt-12 bg-slate-100">
+        <div className="p-4 shadow-lg mt-12 bg-slate-200">
           <h2 className="text-xl font-bold mb-5 flex justify-center font-serif">
             {Object.keys(currentPost).length === 0 ? 'Add Post' : 'Edit Post'}
           </h2>
@@ -134,7 +134,7 @@ const Posts = () => {
           </label>
           <div className="flex justify-center mt-7">
             <button
-              className="bg-blue-500 hover:bg-blue-700 font-serif text-white font-bold py-2 px-4 rounded ml-10"
+              className="bg-gray-800 hover:bg-blue-700 font-serif text-white font-bold py-2 px-4 rounded ml-10"
               onClick={() =>
                 Object.keys(currentPost).length === 0
                   ? handleAddPost()
@@ -146,7 +146,7 @@ const Posts = () => {
                 : 'Update Post'}
             </button>
             <button
-              className="bg-gray-500 hover:bg-gray-700 font-serif text-white font-bold ml-3 py-2 px-4 rounded"
+              className="bg-gray-800 hover:bg-red-500 font-serif text-white font-bold ml-3 py-2 px-4 rounded"
               onClick={() => setShowModal(false)}
             >
               Cancel

@@ -7,6 +7,7 @@ const ExplorePost = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch explore posts data from jsonplaceholder api.
     axios
       .get('https://jsonplaceholder.typicode.com/posts')
       .then((response) => {
@@ -20,10 +21,10 @@ const ExplorePost = () => {
       });
   }, []);
 
+  // Implement post search functionality
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-
   const filteredPosts = explorePosts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -59,7 +60,7 @@ const ExplorePost = () => {
                     <div className="flex-shrink-0 mb-2 mr-4" role="img">
                       <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTbJ6q6nCvC-F8ctwjE8F_gh176HK1p-EcKg&usqp=CAU"
-                        className="rounded-md w-20 h-24"
+                        className="rounded-md w-20 h-24 mt-3"
                         alt="img"
                       />
                     </div>
