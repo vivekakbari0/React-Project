@@ -58,7 +58,7 @@ function LoginPage() {
     <>
       <div className="flex flex-col justify-center font-mono mt-20 items-center border-solid">
         {isLoggedIn ? (
-          <div>
+          <div className="ml-10">
             <p className="text-2xl mb-3">
               Welcome, {JSON.parse(localStorage.getItem('data')).role} ! Are you
               sure you want to logout?
