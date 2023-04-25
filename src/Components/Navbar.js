@@ -24,9 +24,6 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        <p className="text-white mr-4 capitalize font-serif tracking-wider text-lg">
-          Hello {logindataUser}
-        </p>
         <Link to="/Login">
           <FaUserCircle size={25} color="white" />
         </Link>
