@@ -32,16 +32,21 @@ const Posts = () => {
   const handleAddPost = () => {
     // Generate a unique post ID
     const id = generateID();
-    // Create a new post object with the input values and generated ID
-    const newPost = { id, title, body, image };
-    // Add the new post to the posts array
-    setPosts([...posts, newPost]);
-    // Reset the input fields
-    setTitle('');
-    setBody('');
-    setImage((fileRef.current.value = ''));
-    // Show a success message
-    toast.success('Post added successfully');
+    const reader = new FileReader();
+    reader.onload = () => {
+      // Create a new post object with the input values and generated ID
+      const newPost = { id, title, body, image: reader.result };
+      // Add the new post to the posts array
+      setPosts([...posts, newPost]);
+      // Reset the input fields
+      setTitle('');
+      setBody('');
+      setImage(null);
+      fileRef.current.value = null;
+      // Show a success message
+      toast.success('Post added successfully');
+    };
+    reader.readAsDataURL(image);
   };
 
   const handleDeletePost = (id) => {
@@ -60,29 +65,49 @@ const Posts = () => {
     setCurrentPost(postToEdit);
     setTitle(postToEdit.title);
     setBody(postToEdit.body);
-    setImage(postToEdit.image);
+    setImage(null);
     // Show the edit post modal
     setShowModal(true);
   };
 
   const handleUpdatePost = () => {
     // Create a copy of the current post object
-    const updatedPost = { ...currentPost, title, body, image };
-    // Find the index of the current post in the posts array
-    const index = posts.findIndex((post) => post.id === currentPost.id);
-    // Create a new posts array with the updated post object at the same index
-    const updatedPosts = [...posts];
-    updatedPosts[index] = updatedPost;
-    // Update the posts array
-    setPosts(updatedPosts);
-    // Reset the input fields and current post
-    setTitle('');
-    setBody('');
-    setImage('');
-    setCurrentPost({});
-    setShowModal(false);
-    // Show a success message
-    toast.success('Post updated successfully');
+    const updatedPost = { ...currentPost, title, body };
+    // If an image was uploaded, read the file and convert it to a data URL
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        updatedPost.image = reader.result;
+        // Update the post in the posts array
+        const updatedPosts = posts.map((post) =>
+          post.id === updatedPost.id ? updatedPost : post
+        );
+        setPosts(updatedPosts);
+        // Reset the input fields and current post
+        setTitle('');
+        setBody('');
+        setImage(null);
+        setCurrentPost({});
+        setShowModal(false);
+        // Show a success message
+        toast.success('Post updated successfully');
+      };
+      reader.readAsDataURL(image);
+    } else {
+      // If no image was uploaded, update the post in the posts array without changing the image
+      const updatedPosts = posts.map((post) =>
+        post.id === updatedPost.id ? updatedPost : post
+      );
+      setPosts(updatedPosts);
+      // Reset the input fields and current post
+      setTitle('');
+      setBody('');
+      setImage(null);
+      setCurrentPost({});
+      setShowModal(false);
+      // Show a success message
+      toast.success('Post updated successfully');
+    }
   };
 
   return (
@@ -129,7 +154,7 @@ const Posts = () => {
               type="file"
               id="image"
               ref={fileRef}
-              onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
+              onChange={(e) => setImage(e.target.files[0])}
             />
           </label>
           <div className="flex justify-center mt-7">
